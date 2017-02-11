@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  background: #37474F;
+  color: #FAFAFA;
+  font-family: "Roboto", sans-serif;
+  overflow-x: hidden;
+}
+
+@media (max-width: 420px) {
+  .page-title {
+    font-size: 1.5rem;
+    padding: 2rem 1rem;
+  }
+}
+
+@media (min-width: 421px) {
+  .page-title {
+    font-size: 3rem;
+    padding: 4rem 2rem;
+  }
+}
+
+.page-title {
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .24);
+  font-weight: 300;
+  letter-spacing: 3px;
+}

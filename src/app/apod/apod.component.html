@@ -1,0 +1,19 @@
+<h1 class="page-title">Astronomy Picture of the Day</h1>
+<form class="form-apod">
+  <material-datepicker [accentColor]="'#EC407A'" [rangeEnd]="today" [(date)]="apodDate"
+                       (onSelect)="getApod()"></material-datepicker>
+</form>
+<div class="apod-wrapper" [@slideInOut]="apodState"  *ngIf="apod">
+  <header class="apod-title">
+    <h2>
+      {{apod.title}}
+    </h2>
+    <span class="apod-date">{{apod.date}}</span>
+  </header>
+  <a href="{{apod.url}}" target="_blank">
+    <img class="apod" *ngIf="apod.url" [src]="apod.url">
+    <p *ngIf="!apod.url">FUCK ME DADDY</p>
+  </a>
+  <p class="apod-explanation">{{apod.explanation}}</p>
+  <a class="button-hd-image" href="{{apod.hdurl}}" target="_blank">HD IMAGE</a>
+</div>
