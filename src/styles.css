@@ -1,49 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
-*, *:after, *:before {
-  box-sizing: border-box;
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+
+h1 {
+  font-size: 112px;
+  font-weight: 300;
 }
 
-ul, ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+h2 {
+  font-size: 56px;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 45px;
+  font-weight: 400;
+}
+
+h4 {
+  font-size: 34px;
+  font-weight: 400;
+}
+
+h5 {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+h6 {
+  font-size: 20px;
+  font-weight: 500;
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  padding: 0;
+  padding: 1rem;
+  color: #607D8B;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-body {
-  background: #37474F;
-  color: #FAFAFA;
-  font-family: "Roboto", sans-serif;
-  overflow-x: hidden;
-}
-
-@media (max-width: 420px) {
-  .page-title {
-    font-size: 1.5rem;
-    padding: 2rem 1rem;
-  }
-}
-
-@media (min-width: 421px) {
-  .page-title {
-    font-size: 3rem;
-    padding: 4rem 2rem;
-  }
-}
-
-.page-title {
-  width: 100%;
-  text-align: center;
-  background-color: rgba(0, 0, 0, .24);
-  font-weight: 300;
-  letter-spacing: 3px;
+.text-center {
+  text-align: center !important;
 }

@@ -1,19 +1,72 @@
-<h1 class="page-title">Astronomy Picture of the Day</h1>
-<form class="form-apod">
-  <material-datepicker [accentColor]="'#EC407A'" [rangeEnd]="today" [(date)]="apodDate"
-                       (onSelect)="getApod()"></material-datepicker>
-</form>
-<div class="apod-wrapper" [@slideInOut]="apodState"  *ngIf="apod">
-  <header class="apod-title">
-    <h2>
-      {{apod.title}}
-    </h2>
-    <span class="apod-date">{{apod.date}}</span>
-  </header>
-  <a href="{{apod.url}}" target="_blank">
-    <img class="apod" *ngIf="apod.url" [src]="apod.url">
-    <p *ngIf="!apod.url">FUCK ME DADDY</p>
-  </a>
-  <p class="apod-explanation">{{apod.explanation}}</p>
-  <a class="button-hd-image" href="{{apod.hdurl}}" target="_blank">HD IMAGE</a>
+<div fxLayout="column" fxLayoutAlign="center center" class="main-apod">
+  <h3 class="text-center">Astronomy Picture of the Day</h3>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex.gt-xs="66" fxFlex.gt-md="40">
+      <md-card *ngIf="apod">
+        <md-card-header>
+          <md-card-title>{{apod.title}}</md-card-title>
+          <md-card-subtitle class="timestamp">{{apod.date}}</md-card-subtitle>
+        </md-card-header>
+        <img md-card-image [src]="apod.url">
+        <md-card-content>
+          <p>{{apod.explanation}}</p>
+        </md-card-content>
+        <md-card-actions align="end">
+          <a md-raised-button color="primary" href="{{apod.url}}" target="_blank">IMAGE</a>
+          <a md-raised-button color="warn" href="{{apod.hdurl}}" target="_blank">HD IMAGE</a>
+        </md-card-actions>
+        <md-card-footer class="copyright" *ngIf="apod.copyright">
+          <p class="text-center">&copy; {{apod.copyright}}</p>
+        </md-card-footer>
+      </md-card>
+    </div>
+  </div>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="center center" class="older-apods-wrapper">
+  <h4 class="text-center older-apods-header">Older APODs</h4>
+
+  <div fxLayout="row" fxLayoutAlign="space-around baseline">
+    <md-select mdInput placeholder="Month" [(ngModel)]="pickedDate.month">
+      <md-option
+        disabled="{{pickedDate.year === maxYear && month.number +1 > maxMonth}}"
+        *ngFor="let month of months"
+        [value]="month.number">
+        {{month.name}}
+      </md-option>
+    </md-select>
+    <md-input-container>
+      <input mdInput type="number" min="1995" placeholder="Year" max="{{maxYear}}"
+             [(ngModel)]="pickedDate.year">
+    </md-input-container>
+    <button md-raised-button color="primary" (click)="getApods()">Get APODs</button>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="row" fxFlex.gt-sm="80" fxLayoutAlign="space-between center" fxLayoutWrap="wrap" *ngIf="apod">
+      <div fxFlex.xs="100" fxFlex.sm="30" fxFlex.gt-sm="30" *ngFor="let apod of pickedApods.apods"
+           class="apod-card-wrapper">
+        <md-card *ngIf="apod">
+          <md-card-header>
+            <md-card-title>{{apod.title}}</md-card-title>
+            <md-card-subtitle class="timestamp">{{apod.date}}</md-card-subtitle>
+          </md-card-header>
+          <img md-card-image *ngIf="apod.media_type === 'image'" [src]="apod.url">
+          <iframe md-card-image frameborder="0" allowfullscreen [src]="apod.url"
+                  *ngIf="apod.media_type === 'video'"></iframe>
+          <md-card-actions>
+            <button md-button (click)="viewAPOD(apod)">INFO</button>
+            <a color="primary" *ngIf="apod.media_type === 'image'" md-button href="{{apod.url}}"
+               target="_blank">IMAGE</a>
+            <a color="warn" *ngIf="apod.media_type === 'image'" md-button href="{{apod.hdurl}}" target="_blank">HD
+              IMAGE</a>
+          </md-card-actions>
+          <md-card-footer class="copyright" *ngIf="apod.copyright">
+            <p class="text-center">&copy; {{apod.copyright}}</p>
+          </md-card-footer>
+        </md-card>
+      </div>
+    </div>
+  </div>
+
 </div>

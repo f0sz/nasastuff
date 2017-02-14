@@ -1,0 +1,9 @@
+<h1 class="page-title">Earth Polychromatic Imaging Camera</h1>
+<form class="form-epic">
+  <label>
+    <input type="checkbox" name="enchanced" (click)="changeType($event)">
+    Enchanced image
+  </label>
+</form>
+
+<img *ngIf="epic" [src]="epic.src">

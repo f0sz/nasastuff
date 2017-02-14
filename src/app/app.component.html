@@ -1,3 +1,53 @@
-<app-navbar></app-navbar>
+<md-toolbar color="primary" xmlns="http://www.w3.org/1999/html">
+  <a md-button routerLink="/">HOME</a>
+  <a md-button routerLink="/apod">APOD</a>
+  <a md-button routerLink="/epic">EPIC</a>
+  <a md-button routerLink="/rovers">ROVERS</a>
+</md-toolbar>
+
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+
+<div class="footer">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex.gt-xs="60" fxLayout="row" fxLayoutAlign="space-between center">
+      <md-list>
+        <md-list-item>
+          <p class="link">
+            <i class="fa fa-2x fa-envelope"></i>
+            foszke@gmail.com
+          </p>
+        </md-list-item>
+        <md-list-item>
+          <a class="link" href="https://github.com/f0sz/" target="_blank">
+            <i class="fa fa-2x fa-github"></i>
+            f0sz
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <a class="link" href="https://twitter.com/foszke/" target="_blank">
+            <i class="fa fa-2x fa-twitter"></i>
+            foszke
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <a class="link" href="https://codepen.io/f0sz/" target="_blank">
+            <i class="fa fa-2x fa-codepen"></i>
+            f0sz
+          </a>
+        </md-list-item>
+      </md-list>
+
+      <md-list>
+        <md-list-item>
+          <a class="link" href="https://nasa.gov/" target="_blank">nasa</a>
+        </md-list-item>
+        <md-list-item>
+          <a class="link" routerLink="/about">about</a>
+        </md-list-item>
+        <md-list-item>
+          <a class="link" href="https://github.com/f0sz/nasastuff/" target="_blank">nasastuff@github</a>
+        </md-list-item>
+      </md-list>
+    </div>
+  </div>
+</div>

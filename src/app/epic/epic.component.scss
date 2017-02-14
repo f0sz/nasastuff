@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+}
+
+.page-title {
+  padding: 1rem;
+  text-align: center;
+}
+
+.form-epic {
+  margin-top: 1rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}

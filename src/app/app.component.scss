@@ -1,0 +1,44 @@
+.footer {
+  padding: 2rem;
+  background-color: #263238;
+
+  .link {
+    color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: .25rem;
+
+    transition: 150ms ease-out all;
+    &:after {
+      position: absolute;
+      content: "";
+      bottom: 0;
+      right: 0;
+      height: 1px;
+      width: 0;
+      background-color: #673ab7;
+      transition: 150ms ease-in all;
+    }
+
+    .fa {
+      margin-right: 1rem;
+    }
+
+    &:hover {
+      color: #673ab7;
+      cursor: pointer;
+      transition: 150ms ease-out all;
+
+      &:after {
+        left: 0;
+        transition: 150ms ease-in all;
+        width: 100%;
+      }
+
+    }
+
+  }
+
+}

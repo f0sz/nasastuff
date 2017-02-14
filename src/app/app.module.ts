@@ -4,13 +4,14 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
-import {NavbarComponent} from './navbar/navbar.component';
 import {HomePageComponent} from './home-page/home-page.component';
 import {RouterModule} from "@angular/router";
 import {APODComponent} from './apod/apod.component';
-import {NasaService} from "./nasa.service";
-import {FooterComponent} from './footer/footer.component';
-import {DatepickerModule} from 'angular2-material-datepicker';
+import {NasaService} from "./providers/nasa.service";
+import {EPICComponent} from './epic/epic.component';
+import {MaterialModule} from "@angular/material";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import 'hammerjs';
 
 const ROUTES = [
   {
@@ -20,23 +21,27 @@ const ROUTES = [
   {
     path: 'apod',
     component: APODComponent
+  },
+  {
+    path: 'epic',
+    component: EPICComponent
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     HomePageComponent,
     APODComponent,
-    FooterComponent,
+    EPICComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES),
-    DatepickerModule
+    MaterialModule.forRoot(),
+    FlexLayoutModule,
   ],
   providers: [NasaService],
   bootstrap: [AppComponent]
