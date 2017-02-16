@@ -1,0 +1,27 @@
+.main-header{
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-title{
+  color: #F5F5F5;
+  padding: 3rem;
+  background-color: rgba(0,0,0, .36);
+  width: 100%;
+  position: relative;
+}
+
+.backdrop{
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('assets/andromeda.jpg') center center fixed no-repeat;
+  background-size: cover;
+  z-index: -1;
+}

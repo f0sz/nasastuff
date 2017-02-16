@@ -1,9 +1,37 @@
-<h1 class="page-title">Earth Polychromatic Imaging Camera</h1>
-<form class="form-epic">
-  <label>
-    <input type="checkbox" name="enchanced" (click)="changeType($event)">
-    Enchanced image
-  </label>
-</form>
+<div fxLayout="column" fxLayoutAlign="center stretch">
 
-<img *ngIf="epic" [src]="epic.src">
+  <h3 class="text-center">Earth Polychromatic Imaging Camera</h3>
+  <div></div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
+      <md-input-container>
+        <input mdInput type="date" min="2015-06-13" placeholder="EPIC date" max="{{maxDate}}"
+               [(ngModel)]="params.date">
+      </md-input-container>
+    </div>
+    <div fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
+      <md-checkbox [(ngModel)]="params.enhanced">Enhanced image</md-checkbox>
+    </div>
+    <div fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
+      <button md-raised-button color="primary" (click)="getEPICS(params)">Get EPICs</button>
+    </div>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center" *ngIf="epic" class="epic-wrapper">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex.sm="60" fxFlex.md="50" fxFlex.gt-md="50">
+        <md-card>
+          <md-card-header>
+            <md-card-title>{{epic.date}}</md-card-title>
+          </md-card-header>
+          <img md-card-image [src]="epic.image_url">
+          <md-card-actions align="end">
+            <a md-raised-button color="primary" href="{{epic.image_url}}" target="_blank">IMAGE</a>
+            <a md-raised-button color="warn" href="{{epic.image_url_hd}}" target="_blank">HD IMAGE</a>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
+  </div>
+</div>

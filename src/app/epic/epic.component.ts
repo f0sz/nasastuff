@@ -2,6 +2,7 @@ import {Component, OnInit, HostBinding} from '@angular/core';
 import {fadeOut} from "../animations";
 import {NasaService} from "../providers/nasa.service";
 import * as moment from 'moment';
+import {Observable} from "rxjs";
 @Component({
   selector: 'app-epic',
   templateUrl: './epic.component.html',
@@ -11,30 +12,45 @@ import * as moment from 'moment';
 export class EPICComponent implements OnInit {
 
   @HostBinding('@routeAnimation') routeAniamtion: true;
-
-  query = {
-    date: new Date(),
-    type: 'natural'
+  maxDate = moment().subtract(2, 'days').format('YYYY-MM-DD');
+  params = {
+    enhanced: false,
+    date: this.maxDate
   };
-  today: Date = new Date();
+  epics = [];
   epic;
+  changeInterval;
+
 
   constructor(private nasaService: NasaService) {
   }
 
   ngOnInit() {
-    let query = {
-      date: moment(this.query.date).format('YYYY-MM-DD'),
-      type: this.query.type
-    };
-    this.nasaService.getEPIC(query).subscribe(
-      (data) => console.log(data),
-      (err) => console.log(err)
+    this.getEPICS();
+  }
+
+  getEPICS() {
+    window.clearInterval(this.changeInterval);
+    const tempEpics = [];
+    this.nasaService.getEPIC(this.params).subscribe(
+      (data) => data.map(epic => tempEpics.push(epic)),
+      (err) => console.log(err),
+      () => {
+        this.epics = tempEpics;
+        this.epic = this.epics[0];
+        this.changeEpic();
+      }
     )
   }
 
-  changeType(event) {
-    this.query.type = event.target.checked ? 'enchanced' : 'normal';
+  changeEpic() {
+    let index = 0;
+    this.changeInterval = setInterval(() => {
+      if (index >= this.epics.length) index = 0;
+
+      this.epic = this.epics[index];
+      index++;
+    }, 500);
   }
 
 }

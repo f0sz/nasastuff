@@ -1,19 +1,4 @@
-:host {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column;
-}
-
-.page-title {
-  padding: 1rem;
-  text-align: center;
-}
-
-.form-epic {
-  margin-top: 1rem;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
+.epic-wrapper{
+  min-height: 80vh;
+  padding: 2rem 0;
 }

@@ -9,12 +9,18 @@ import 'rxjs/add/operator/mergeMap';
 @Injectable()
 export class NasaService {
 
-  private _API_URL = 'https://api.nasa.gov/planetary';
-  private _APOD_URL = `${this._API_URL}/apod`;
-  private _EPIC_URL = `https://api.nasa.gov/EPIC/api/`;
   private _API_KEY = 'rLCndMcc9esyIAdwpqsvqOHGPp47QKbZpH7SyKD9';
+  private _URLS = {
+    _APOD: 'https://api.nasa.gov/planetary/apod',
+    _EPIC: {
+      api: 'https://api.nasa.gov/EPIC/api/',
+      image: 'http://api.nasa.gov/EPIC/archive'
+    }
+  };
+
 
   private apods: Subject<any> = new Subject<any>();
+  private epicDates: Subject<any> = new Subject<any>();
 
   constructor(private http: Http) {
   }
@@ -27,7 +33,7 @@ export class NasaService {
     params.set('hd', 'true');
     params.set('api_key', this._API_KEY);
 
-    return this.http.get(this._APOD_URL, {search: params})
+    return this.http.get(this._URLS._APOD, {search: params})
       .map((res: Response) => res.json())
       .catch((err: Response|any) => err)
 
@@ -49,17 +55,23 @@ export class NasaService {
     return this.apods.asObservable();
   }
 
-  getEPIC(query?): Observable<any> {
+  getEPIC(query): Observable<any> {
     let params = new URLSearchParams();
-
-    params.set(`${query.type}/date`, query.date);
+    let imageType = query.enhanced ? 'enhanced' : 'natural';
+    let epicURL = `${this._URLS._EPIC.api}/${imageType}/date/${query.date}`;
     params.set('api_key', this._API_KEY);
 
-    return this.http.get(this._EPIC_URL, {search: params})
-      .map((res: Response) => res.json())
+    return this.http.get(epicURL, {search: params})
+      .map((res: Response) =>
+        res.json()
+          .map((epic) => {
+            let parsedDate = moment(epic.date).format('YYYY/MM/DD');
+            epic.image_url = `${this._URLS._EPIC.image}/${imageType}/${parsedDate}/jpg/${epic.image}.jpg?api_key=${this._API_KEY}`;
+            epic.image_url_hd = `${this._URLS._EPIC.image}/${imageType}/${parsedDate}/png/${epic.image}.png?api_key=${this._API_KEY}`;
+            epic.image_thumb = `${this._URLS._EPIC.image}/${imageType}/${parsedDate}/thumbs/${epic.image}.jpg?api_key=${this._API_KEY}`;
+            return epic;
+          })
+      )
       .catch((err: Response |any) => err)
-
   }
-
-
 }

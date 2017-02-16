@@ -12,6 +12,7 @@ import {EPICComponent} from './epic/epic.component';
 import {MaterialModule} from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import 'hammerjs';
+import {GifService} from "./providers/gif.service";
 
 const ROUTES = [
   {
@@ -40,10 +41,10 @@ const ROUTES = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES),
-    MaterialModule.forRoot(),
+    MaterialModule,
     FlexLayoutModule,
   ],
-  providers: [NasaService],
+  providers: [NasaService, GifService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

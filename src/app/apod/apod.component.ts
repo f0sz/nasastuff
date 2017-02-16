@@ -67,16 +67,20 @@ export class APODComponent implements OnInit {
             data.url = this.sanitizer.bypassSecurityTrustResourceUrl(`${data.url.replace('autoplay=1', 'autoplay=0')}`);
           }
           tempApods.push(data);
+          tempApods.sort((a, b) => {
+            return new Date(a.date).getTime() - new Date(b.date).getTime();
+          });
         },
-        (err) => console.log(err)
+        (err) => console.log(err),
       );
+
       this.apods.push({month: this.pickedDate.month, apods: tempApods});
       this.pickedApods = this.apods[this.apods.length - 1];
     }
   }
 
   ngOnDestroy() {
-    this.subscriptions.apod.unsubscribe();
-    this.subscriptions.apods.unsubscribe();
+    this.subscriptions.apod ? this.subscriptions.apod.unsubscribe() : undefined;
+    this.subscriptions.apods ? this.subscriptions.apods.unsubscribe() : undefined;
   }
 }
