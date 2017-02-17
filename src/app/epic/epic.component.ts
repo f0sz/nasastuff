@@ -2,7 +2,7 @@ import {Component, OnInit, HostBinding} from '@angular/core';
 import {fadeOut} from "../animations";
 import {NasaService} from "../providers/nasa.service";
 import * as moment from 'moment';
-import {Observable} from "rxjs";
+import {Observable, TimeInterval} from "rxjs";
 @Component({
   selector: 'app-epic',
   templateUrl: './epic.component.html',
@@ -19,8 +19,10 @@ export class EPICComponent implements OnInit {
   };
   epics = [];
   epic;
-  changeInterval;
-
+  epicIndex = 0;
+  autoplayImages: Boolean = false;
+  autoplayImagesInterval;
+  autoplayImagesSpeed = 1;
 
   constructor(private nasaService: NasaService) {
   }
@@ -30,27 +32,68 @@ export class EPICComponent implements OnInit {
   }
 
   getEPICS() {
-    window.clearInterval(this.changeInterval);
+    this.autoplayImages = false;
+    this.epicIndex = 0;
+    this.epics = [];
     const tempEpics = [];
     this.nasaService.getEPIC(this.params).subscribe(
-      (data) => data.map(epic => tempEpics.push(epic)),
+      (data) => data.map(epic => {
+        tempEpics.push(epic)
+      }),
       (err) => console.log(err),
       () => {
         this.epics = tempEpics;
-        this.epic = this.epics[0];
         this.changeEpic();
       }
     )
   }
 
   changeEpic() {
-    let index = 0;
-    this.changeInterval = setInterval(() => {
-      if (index >= this.epics.length) index = 0;
+    if (this.autoplayImages) {
+      this.autoplayImagesInterval = setInterval(() => {
+        this.checkIndex();
+        this.epic = this.epics[this.epicIndex];
+        this.epicIndex++;
+        if (!this.autoplayImages)
+          window.clearInterval(this.autoplayImagesInterval);
+      }, this.autoplayImagesSpeed * 1000)
+    } else {
+      this.checkIndex();
+      this.epic = this.epics[this.epicIndex];
+    }
 
-      this.epic = this.epics[index];
-      index++;
-    }, 500);
   }
 
+  swipe(event) {
+    this.autoplayImages = false;
+
+    if (event.direction === 2)
+      this.epicIndex++;
+
+    if (event.direction === 4)
+      this.epicIndex--;
+
+    this.changeEpic();
+  }
+
+  checkIndex() {
+    if (this.epicIndex < 0)
+      this.epicIndex = this.epics.length - 1;
+
+    if (this.epicIndex > this.epics.length - 1)
+      this.epicIndex = 0;
+  }
+
+  updateAutoplay(clearInterval?) {
+    if (clearInterval)
+      window.clearInterval(this.autoplayImagesInterval);
+    this.changeEpic();
+  }
+
+  selectEpic(epic) {
+    let index = this.epics.findIndex(e => e.date === epic.date);
+    this.autoplayImages = false;
+    this.epicIndex = index;
+    this.updateAutoplay(true);
+  }
 }

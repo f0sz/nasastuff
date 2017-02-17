@@ -21,12 +21,6 @@ type apod = {
 })
 export class APODComponent implements OnInit {
 
-  constructor(private nasaService: NasaService, private sanitizer: DomSanitizer) {
-    this.months = moment.months().map((month, index) => {
-      return {name: month, number: index};
-    })
-  }
-
   apod: apod;
   maxYear = moment().format('YYYY');
   maxMonth = moment().format('MM');
@@ -38,6 +32,13 @@ export class APODComponent implements OnInit {
   apods = [];
   pickedApods = [];
   subscriptions = {apod: null, apods: null};
+  apodLoading: Boolean = true;
+
+  constructor(private nasaService: NasaService, private sanitizer: DomSanitizer) {
+    this.months = moment.months().map((month, index) => {
+      return {name: month, number: index};
+    })
+  }
 
   @HostBinding('@routeAnimation') routeAnimation = true;
 
@@ -66,6 +67,7 @@ export class APODComponent implements OnInit {
           if (data.media_type === 'video') {
             data.url = this.sanitizer.bypassSecurityTrustResourceUrl(`${data.url.replace('autoplay=1', 'autoplay=0')}`);
           }
+          data.loading = true;
           tempApods.push(data);
           tempApods.sort((a, b) => {
             return new Date(a.date).getTime() - new Date(b.date).getTime();

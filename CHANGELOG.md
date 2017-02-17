@@ -1,3 +1,15 @@
+##2017-02-17
+#####ADDED:
+* epic page: autoplay option (for changing images in card)
+* epic page: swipe event on image (swipe to change image)
+* epic page: epics thumbnails with events
+* epic page: autoplay speed slider
+* apod page: spinner while apod image is not fully loaded
+
+#####CHANGED:
+* epic page: epic card styles
+* epic page: fixed image changing on date change (earlier date was changing, but image was frozen)
+
 ##2017-02-16
 #####CHANGED:
 * apod component: fixed error when navigating from /apod to home

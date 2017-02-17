@@ -1,37 +1,77 @@
 <div fxLayout="column" fxLayoutAlign="center stretch">
 
   <h3 class="text-center">Earth Polychromatic Imaging Camera</h3>
-  <div></div>
 
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <div fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap="wrap">
+    <div fxFlex.xs="50" fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
       <md-input-container>
         <input mdInput type="date" min="2015-06-13" placeholder="EPIC date" max="{{maxDate}}"
                [(ngModel)]="params.date">
       </md-input-container>
     </div>
-    <div fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex.xs="50" fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
       <md-checkbox [(ngModel)]="params.enhanced">Enhanced image</md-checkbox>
     </div>
-    <div fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex.xs="50" fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
       <button md-raised-button color="primary" (click)="getEPICS(params)">Get EPICs</button>
     </div>
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="center center" *ngIf="epic" class="epic-wrapper">
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <div fxFlex.sm="60" fxFlex.md="50" fxFlex.gt-md="50">
-        <md-card>
-          <md-card-header>
-            <md-card-title>{{epic.date}}</md-card-title>
-          </md-card-header>
-          <img md-card-image [src]="epic.image_url">
-          <md-card-actions align="end">
-            <a md-raised-button color="primary" href="{{epic.image_url}}" target="_blank">IMAGE</a>
-            <a md-raised-button color="warn" href="{{epic.image_url_hd}}" target="_blank">HD IMAGE</a>
-          </md-card-actions>
-        </md-card>
-      </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center" class="epic-wrapper">
+    <div fxFlex.xs="100" fxFlex.sm="60" fxFlex.gt-sm="40" *ngIf="epic">
+      <md-card>
+        <md-card-header>
+          <md-card-title>
+            <h6 class="epic-date text-center">{{epic.date}}</h6>
+          </md-card-title>
+        </md-card-header>
+        <img class="epic-image"
+             md-card-image
+             [src]="epic.image_url"
+             (swipeleft)="swipe($event)"
+             (swiperight)="swipe($event)">
+        <md-card-content class="epic-content">
+          <div fxLayout="column">
+            <md-slide-toggle
+              [(ngModel)]="autoplayImages"
+              (ngModelChange)="updateAutoplay(true)">Autoplay images
+            </md-slide-toggle>
+            <label>
+              Autoplay interval
+              <small>(in seconds)</small>
+              <md-slider
+                [disabled]="!autoplayImages"
+                [invert]="true"
+                [max]="2"
+                [min]="0.3"
+                [step]="0.1"
+                [thumb-label]="true"
+                [value]="autoplayImagesSpeed"
+                [(ngModel)]="autoplayImagesSpeed"
+                (ngModelChange)="updateAutoplay(true)">
+              </md-slider>
+            </label>
+          </div>
+          <div fxLayout="row" class="epic-thumbs-wrapper">
+            <div class="thumb"
+                 *ngFor="let thumb of epics"
+                 (click)="selectEpic(thumb)"
+                 [ngClass]="{selected: epic.date === thumb.date}">
+              <img [src]="thumb.image_thumb">
+              <p class="thumb-date">{{thumb.date}}</p>
+            </div>
+          </div>
+        </md-card-content>
+        <md-card-actions align="end">
+          <button md-raised-button color="accent">
+            <md-icon>add</md-icon>
+            GIF
+          </button>
+          <a md-raised-button color="primary" href="{{epic.image_url}}" target="_blank">IMAGE</a>
+          <a md-raised-button color="warn" href="{{epic.image_url_hd}}" target="_blank">HD IMAGE</a>
+        </md-card-actions>
+      </md-card>
     </div>
   </div>
 </div>

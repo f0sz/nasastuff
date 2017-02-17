@@ -8,7 +8,8 @@
     "start": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev": "lite-server -c bs-config.json"
   },
   "private": true,
   "dependencies": {
@@ -47,6 +48,7 @@
     "karma-cli": "^1.0.1",
     "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "^1.0.2",
+    "lite-server": "^2.2.2",
     "protractor": "~5.1.0",
     "ts-node": "1.2.1",
     "tslint": "^4.3.0",
