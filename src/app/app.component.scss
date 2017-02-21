@@ -1,6 +1,9 @@
 .footer {
   padding: 2rem;
   background-color: #263238;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
   .link {
     color: #F5F5F5;
@@ -36,13 +39,6 @@
         transition: 150ms ease-in all;
         width: 100%;
       }
-
     }
-
   }
-
-}
-
-md-spinner{
-  margin: 2rem auto;
 }

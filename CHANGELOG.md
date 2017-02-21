@@ -1,3 +1,20 @@
+##2017-02-21
+#####ADDED:
+* apod info dialog component
+* apod page: view info button functionality (opens a dialog with apod explanation)
+
+#####CHANGED:
+* epic page: interval slide and interval are showing data in ms instead of seconds
+* renamed epic/apod .component to epic/apod -page.component
+* apod page: youtube vids are now correctly displayed in the main apod
+* styles for .mat-spinner
+
+#####REMOVED:
+* rovers link and route
+* footer links, leaving only two
+
+
+
 ##2017-02-17
 #####ADDED:
 * epic page: autoplay option (for changing images in card)
@@ -9,6 +26,8 @@
 #####CHANGED:
 * epic page: epic card styles
 * epic page: fixed image changing on date change (earlier date was changing, but image was frozen)
+
+
 
 ##2017-02-16
 #####CHANGED:
@@ -26,8 +45,9 @@
 * gifshot npm package
 * _gifService (for creating gif from epic images later on)_
 
-##2017-02-14
 
+
+##2017-02-14
 #####ADDED:
 * angular/material2 npm package
 * angular/flex-layout npm package
@@ -46,9 +66,7 @@
 
 
 
-
 ##2017-02-11
-
 #####ADDED:
 * homepage
 * nasa service (for API calls)

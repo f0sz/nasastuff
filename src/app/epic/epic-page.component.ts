@@ -2,14 +2,14 @@ import {Component, OnInit, HostBinding} from '@angular/core';
 import {fadeOut} from "../animations";
 import {NasaService} from "../providers/nasa.service";
 import * as moment from 'moment';
-import {Observable, TimeInterval} from "rxjs";
+import {Http} from "@angular/http";
 @Component({
-  selector: 'app-epic',
-  templateUrl: './epic.component.html',
-  styleUrls: ['./epic.component.scss'],
+  selector: 'app-epic-page',
+  templateUrl: 'epic-page.component.html',
+  styleUrls: ['epic-page.component.scss'],
   animations: [fadeOut]
 })
-export class EPICComponent implements OnInit {
+export class EPICPageComponent implements OnInit {
 
   @HostBinding('@routeAnimation') routeAniamtion: true;
   maxDate = moment().subtract(2, 'days').format('YYYY-MM-DD');
@@ -22,9 +22,10 @@ export class EPICComponent implements OnInit {
   epicIndex = 0;
   autoplayImages: Boolean = false;
   autoplayImagesInterval;
-  autoplayImagesSpeed = 1;
+  autoplayImagesSpeed = 1000;
 
-  constructor(private nasaService: NasaService) {
+  constructor(private nasaService: NasaService,
+              private http: Http) {
   }
 
   ngOnInit() {
@@ -56,7 +57,7 @@ export class EPICComponent implements OnInit {
         this.epicIndex++;
         if (!this.autoplayImages)
           window.clearInterval(this.autoplayImagesInterval);
-      }, this.autoplayImagesSpeed * 1000)
+      }, this.autoplayImagesSpeed)
     } else {
       this.checkIndex();
       this.epic = this.epics[this.epicIndex];

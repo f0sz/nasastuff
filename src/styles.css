@@ -44,3 +44,11 @@ h1, h2, h3, h4, h5, h6 {
 body{
   background: #ECEFF1;
 }
+
+.mat-spinner{
+  margin: 2rem auto;
+}
+
+.mat-spinner path{
+  stroke-width: 5px !important;
+}

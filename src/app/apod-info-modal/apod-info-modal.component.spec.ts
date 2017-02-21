@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { APODComponent } from './apod.component';
+import { ApodInfoModalComponent } from './apod-info-modal.component';
 
-describe('APODComponent', () => {
-  let component: APODComponent;
-  let fixture: ComponentFixture<APODComponent>;
+describe('ApodInfoModalComponent', () => {
+  let component: ApodInfoModalComponent;
+  let fixture: ComponentFixture<ApodInfoModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ APODComponent ]
+      declarations: [ ApodInfoModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(APODComponent);
+    fixture = TestBed.createComponent(ApodInfoModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

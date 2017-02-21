@@ -3,6 +3,8 @@ import {NasaService} from "../providers/nasa.service";
 import * as moment from 'moment';
 import {fadeOut} from "../animations";
 import {DomSanitizer} from "@angular/platform-browser";
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {ApodInfoModalComponent} from "../apod-info-modal/apod-info-modal.component";
 
 type apod = {
   date?: Date,
@@ -14,12 +16,12 @@ type apod = {
 }
 
 @Component({
-  selector: 'app-apod',
-  templateUrl: './apod.component.html',
-  styleUrls: ['./apod.component.scss'],
+  selector: 'app-apod-page',
+  templateUrl: 'apod-page.component.html',
+  styleUrls: ['apod-page.component.scss'],
   animations: [fadeOut]
 })
-export class APODComponent implements OnInit {
+export class APODPageComponent implements OnInit {
 
   apod: apod;
   maxYear = moment().format('YYYY');
@@ -33,14 +35,15 @@ export class APODComponent implements OnInit {
   pickedApods = [];
   subscriptions = {apod: null, apods: null};
   apodLoading: Boolean = true;
+  @HostBinding('@routeAnimation') routeAnimation = true;
 
-  constructor(private nasaService: NasaService, private sanitizer: DomSanitizer) {
+  constructor(private nasaService: NasaService,
+              private sanitizer: DomSanitizer,
+              public dialog: MdDialog) {
     this.months = moment.months().map((month, index) => {
       return {name: month, number: index};
     })
   }
-
-  @HostBinding('@routeAnimation') routeAnimation = true;
 
   ngOnInit() {
     this.getApod();
@@ -49,6 +52,9 @@ export class APODComponent implements OnInit {
   getApod() {
     this.subscriptions.apod = this.nasaService.getAPOD(moment().format('YYYY-MM-DD')).subscribe(
       (data) => {
+        if (data.media_type === 'video') {
+          data.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${data.url.replace('autoplay=1', 'autoplay=0')}`);
+        }
         this.apod = data;
       },
       (err) => console.log(err)
@@ -79,6 +85,14 @@ export class APODComponent implements OnInit {
       this.apods.push({month: this.pickedDate.month, apods: tempApods});
       this.pickedApods = this.apods[this.apods.length - 1];
     }
+  }
+
+  viewAPOD(apod) {
+    let dialogRef = this.dialog.open(ApodInfoModalComponent, {
+      data: {
+        apod: apod
+      }
+    });
   }
 
   ngOnDestroy() {

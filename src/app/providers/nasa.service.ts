@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, URLSearchParams, Response} from "@angular/http";
 import * as moment from 'moment';
-import {Observable, Subject, BehaviorSubject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/mergeMap';
@@ -18,9 +18,7 @@ export class NasaService {
     }
   };
 
-
   private apods: Subject<any> = new Subject<any>();
-  private epicDates: Subject<any> = new Subject<any>();
 
   constructor(private http: Http) {
   }

@@ -6,13 +6,13 @@ import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {HomePageComponent} from './home-page/home-page.component';
 import {RouterModule} from "@angular/router";
-import {APODComponent} from './apod/apod.component';
+import {APODPageComponent} from './apod-page/apod-page.component';
 import {NasaService} from "./providers/nasa.service";
-import {EPICComponent} from './epic/epic.component';
+import {EPICPageComponent} from './epic/epic-page.component';
 import {MaterialModule} from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import 'hammerjs';
-import {GifService} from "./providers/gif.service";
+import {ApodInfoModalComponent} from './apod-info-modal/apod-info-modal.component';
 
 const ROUTES = [
   {
@@ -21,11 +21,11 @@ const ROUTES = [
   },
   {
     path: 'apod',
-    component: APODComponent
+    component: APODPageComponent
   },
   {
     path: 'epic',
-    component: EPICComponent
+    component: EPICPageComponent
   }
 ];
 
@@ -33,8 +33,9 @@ const ROUTES = [
   declarations: [
     AppComponent,
     HomePageComponent,
-    APODComponent,
-    EPICComponent,
+    APODPageComponent,
+    EPICPageComponent,
+    ApodInfoModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,8 +45,9 @@ const ROUTES = [
     MaterialModule,
     FlexLayoutModule,
   ],
-  providers: [NasaService, GifService],
-  bootstrap: [AppComponent]
+  providers: [NasaService],
+  bootstrap: [AppComponent],
+  entryComponents: [ApodInfoModalComponent]
 })
 export class AppModule {
 }
