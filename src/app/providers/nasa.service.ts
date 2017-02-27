@@ -32,7 +32,7 @@ export class NasaService {
 
     return this.http.get(this._URLS._APOD, { search: params })
       .map((res: Response) => res.json())
-      .catch((err: Response | any) => console.log(err))
+      .catch((err: Response | any) => err)
   }
 
   getAPODS(pickedDate): Observable<any> {
