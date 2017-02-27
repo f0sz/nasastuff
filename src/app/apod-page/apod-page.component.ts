@@ -50,7 +50,7 @@ export class APODPageComponent implements OnInit {
   }
 
   getApod() {
-    this.subscriptions.apod = this.nasaService.getAPOD(moment().format('YYYY-MM-DD')).subscribe(
+    this.subscriptions.apod = this.nasaService.getAPOD().subscribe(
       (data) => {
         if (data.media_type === 'video') {
           data.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${data.url.replace('autoplay=1', 'autoplay=0')}`);
@@ -70,7 +70,7 @@ export class APODPageComponent implements OnInit {
     } else {
       this.subscriptions.apods = this.nasaService.getAPODS(this.pickedDate).subscribe(
         (data) => {
-          if (data.media_type === 'video') {
+          if (data && data.media_type === 'video') {
             data.url = this.sanitizer.bypassSecurityTrustResourceUrl(`${data.url.replace('autoplay=1', 'autoplay=0')}`);
           }
           data.loading = true;

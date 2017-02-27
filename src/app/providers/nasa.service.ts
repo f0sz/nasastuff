@@ -32,8 +32,7 @@ export class NasaService {
 
     return this.http.get(this._URLS._APOD, { search: params })
       .map((res: Response) => res.json())
-      .catch((err: Response | any) => err)
-
+      .catch((err: Response | any) => console.log(err))
   }
 
   getAPODS(pickedDate): Observable<any> {
@@ -45,7 +44,7 @@ export class NasaService {
       if (requestDate <= moment().format('YYYY-MM-DD')) {
         this.getAPOD(requestDate).subscribe(
           (data) => this.apods.next(data),
-          (err) => console.log(err)
+          (err) => err
         )
       }
     }
