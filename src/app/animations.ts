@@ -1,4 +1,4 @@
-import {AnimationEntryMetadata, trigger, transition, animate, style} from "@angular/core";
+import { AnimationEntryMetadata, trigger, transition, animate, style } from "@angular/core";
 
 export const fadeOut: AnimationEntryMetadata =
   trigger('routeAnimation', [

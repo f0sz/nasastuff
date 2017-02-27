@@ -1,5 +1,5 @@
-import {Component, OnInit, HostBinding} from '@angular/core';
-import {fadeOut} from "../animations";
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { fadeOut } from "../animations";
 
 @Component({
   selector: 'app-home-page',

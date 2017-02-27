@@ -41,14 +41,16 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center !important;
 }
 
-body{
+body {
   background: #ECEFF1;
+  margin: 0;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
-.mat-spinner{
+.mat-spinner {
   margin: 2rem auto;
 }
 
-.mat-spinner path{
+.mat-spinner path {
   stroke-width: 5px !important;
 }

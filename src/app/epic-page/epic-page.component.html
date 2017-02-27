@@ -4,13 +4,12 @@
 
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap="wrap">
     <div fxFlex.xs="50" fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
-      <md-input-container>
-        <input mdInput type="date" min="2015-06-13" placeholder="EPIC date" max="{{maxDate}}"
-               [(ngModel)]="params.date">
+      <md-input-container *ngIf="maxDate">
+        <input mdInput type="date" min="2015-06-13" placeholder="EPIC date" max="{{maxDate}}" [(ngModel)]="selectedDate">
       </md-input-container>
     </div>
     <div fxFlex.xs="50" fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
-      <md-checkbox [(ngModel)]="params.enhanced">Enhanced image</md-checkbox>
+      <md-checkbox [(ngModel)]="enhanced">Enhanced image</md-checkbox>
     </div>
     <div fxFlex.xs="50" fxFlex.gt-sm="20" fxLayout="row" fxLayoutAlign="center center">
       <button md-raised-button color="primary" (click)="getEPICS(params)">Get EPICs</button>
@@ -25,16 +24,10 @@
             <h6 class="epic-date text-center">{{epic.date}}</h6>
           </md-card-title>
         </md-card-header>
-        <img class="epic-image"
-             md-card-image
-             [src]="epic.image_url"
-             (swipeleft)="swipe($event)"
-             (swiperight)="swipe($event)">
+        <img class="epic-image" md-card-image [src]="epic.image_url" (swipeleft)="swipe($event)" (swiperight)="swipe($event)">
         <md-card-content class="epic-content">
           <div fxLayout="column">
-            <md-slide-toggle
-              [(ngModel)]="autoplayImages"
-              (ngModelChange)="updateAutoplay(true)">Autoplay images
+            <md-slide-toggle [(ngModel)]="autoplayImages" (ngModelChange)="updateAutoplay(true)">Autoplay images
             </md-slide-toggle>
             <label>
               Autoplay interval
@@ -52,10 +45,7 @@
             </label>
           </div>
           <div fxLayout="row" class="epic-thumbs-wrapper">
-            <div class="thumb"
-                 *ngFor="let thumb of epics"
-                 (click)="selectEpic(thumb)"
-                 [ngClass]="{selected: epic.date === thumb.date}">
+            <div class="thumb" *ngFor="let thumb of epics" (click)="selectEpic(thumb)" [ngClass]="{selected: epic.date === thumb.date}">
               <img [src]="thumb.image_thumb">
               <p class="thumb-date">{{thumb.date}}</p>
             </div>

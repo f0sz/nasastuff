@@ -8,32 +8,23 @@
           <md-card-subtitle class="timestamp">{{apod.date}}</md-card-subtitle>
         </md-card-header>
 
-        <img md-card-image
-             *ngIf="apod.media_type === 'image'"
-             [hidden]="apodLoading"
-             [src]="apod.url"
-             (load)="apodLoading = false">
+        <img md-card-image *ngIf="apod.media_type === 'image'" [hidden]="apodLoading" [src]="apod.url" (load)="apodLoading = false">
 
-        <iframe md-card-image
-                frameborder="0"
-                allowfullscreen
-                *ngIf="apod.media_type === 'video'"
-                [hidden]="apodLoading"
-                [src]="apod.safeUrl"
-                (load)="apodLoading = false">
-        </iframe>
+        <iframe md-card-image frameborder="0" allowfullscreen *ngIf="apod.media_type === 'video'" [hidden]="apodLoading" [src]="apod.safeUrl"
+          (load)="apodLoading = false">
+          </iframe>
 
-        <md-spinner *ngIf="apodLoading"></md-spinner>
-        <md-card-content>
-          <p>{{apod.explanation}}</p>
-        </md-card-content>
-        <md-card-actions align="end">
-          <a md-raised-button color="primary" href="{{apod.url}}" target="_blank">IMAGE</a>
-          <a md-raised-button color="warn" href="{{apod.hdurl}}" target="_blank">HD IMAGE</a>
-        </md-card-actions>
-        <md-card-footer class="copyright" *ngIf="apod.copyright">
-          <p class="text-center">&copy; {{apod.copyright}}</p>
-        </md-card-footer>
+          <md-spinner *ngIf="apodLoading"></md-spinner>
+          <md-card-content>
+            <p>{{apod.explanation}}</p>
+          </md-card-content>
+          <md-card-actions align="end">
+            <a md-raised-button color="primary" href="{{apod.url}}" target="_blank">IMAGE</a>
+            <a md-raised-button color="warn" href="{{apod.hdurl}}" target="_blank">HD IMAGE</a>
+          </md-card-actions>
+          <md-card-footer class="copyright" *ngIf="apod.copyright">
+            <p class="text-center">&copy; {{apod.copyright}}</p>
+          </md-card-footer>
       </md-card>
     </div>
   </div>
@@ -47,22 +38,14 @@
   <div fxLayout="row" fxLayoutWrap="wrap" fxFlex.xs="100" fxFlex.gt-sm="40" fxLayoutAlign="space-around center">
     <div fxFlex.xs="50" fxLayoutAlign="center center">
       <md-select mdInput placeholder="Month" [(ngModel)]="pickedDate.month">
-        <md-option
-          disabled="{{pickedDate.year === maxYear && month.number +1 > maxMonth}}"
-          *ngFor="let month of months"
-          [value]="month.number">
+        <md-option disabled="{{pickedDate.year === maxYear && month.number +1 > maxMonth}}" *ngFor="let month of months" [value]="month.number">
           {{month.name}}
         </md-option>
       </md-select>
     </div>
     <div fxFlex.xs="50" fxLayoutAlign="center center">
       <md-input-container>
-        <input mdInput
-               type="number"
-               min="1995"
-               placeholder="Year"
-               max="{{maxYear}}"
-               [(ngModel)]="pickedDate.year">
+        <input mdInput type="number" min="1995" placeholder="Year" max="{{maxYear}}" [(ngModel)]="pickedDate.year">
       </md-input-container>
     </div>
     <div fxFlex.xs="50" fxLayoutAlign="center center">
@@ -74,41 +57,30 @@
 
 <div fxLayout="row" fxLayoutAlign="center center">
   <div fxLayout="row" fxFlex.gt-sm="80" fxLayoutAlign="space-between center" fxLayoutWrap="wrap" *ngIf="apod">
-    <div fxFlex.xs="100" fxFlex.sm="30" fxFlex.gt-sm="30" *ngFor="let apod of pickedApods.apods"
-         class="apod-card-wrapper">
+    <div fxFlex.xs="100" fxFlex.sm="30" fxFlex.gt-sm="30" *ngFor="let apod of pickedApods.apods" class="apod-card-wrapper">
       <md-card *ngIf="apod">
         <md-card-header>
           <md-card-title>{{apod.title}}</md-card-title>
           <md-card-subtitle class="timestamp">{{apod.date}}</md-card-subtitle>
         </md-card-header>
 
-        <img md-card-image
-             *ngIf="apod.media_type === 'image'"
-             [hidden]="apod.loading"
-             [src]="apod.url"
-             (load)="apod.loading = false">
+        <img md-card-image *ngIf="apod.media_type === 'image'" [hidden]="apod.loading" [src]="apod.url" (load)="apod.loading = false">
 
-        <iframe md-card-image
-                frameborder="0"
-                allowfullscreen
-                *ngIf="apod.media_type === 'video'"
-                [hidden]="apod.loading"
-                [src]="apod.url"
-                (load)="apod.loading = false">
-        </iframe>
+        <iframe md-card-image frameborder="0" allowfullscreen *ngIf="apod.media_type === 'video'" [hidden]="apod.loading" [src]="apod.url"
+          (load)="apod.loading = false">
+          </iframe>
 
-        <md-spinner *ngIf="apod.loading"></md-spinner>
+          <md-spinner *ngIf="apod.loading"></md-spinner>
 
-        <md-card-actions>
-          <button md-button (click)="viewAPOD(apod)">INFO</button>
-          <a color="primary" *ngIf="apod.media_type === 'image'" md-button href="{{apod.url}}"
-             target="_blank">IMAGE</a>
-          <a color="warn" *ngIf="apod.media_type === 'image'" md-button href="{{apod.hdurl}}" target="_blank">HD
+          <md-card-actions>
+            <button md-button (click)="viewAPOD(apod)">INFO</button>
+            <a color="primary" *ngIf="apod.media_type === 'image'" md-button href="{{apod.url}}" target="_blank">IMAGE</a>
+            <a color="warn" *ngIf="apod.media_type === 'image'" md-button href="{{apod.hdurl}}" target="_blank">HD
             IMAGE</a>
-        </md-card-actions>
-        <md-card-footer class="copyright" *ngIf="apod.copyright">
-          <p class="text-center">&copy; {{apod.copyright}}</p>
-        </md-card-footer>
+          </md-card-actions>
+          <md-card-footer class="copyright" *ngIf="apod.copyright">
+            <p class="text-center">&copy; {{apod.copyright}}</p>
+          </md-card-footer>
       </md-card>
     </div>
   </div>

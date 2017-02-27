@@ -1,10 +1,10 @@
-import {Component, OnInit, HostBinding} from '@angular/core';
-import {NasaService} from "../providers/nasa.service";
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { NasaService } from "../providers/nasa.service";
 import * as moment from 'moment';
-import {fadeOut} from "../animations";
-import {DomSanitizer} from "@angular/platform-browser";
-import {MdDialog, MdDialogRef} from "@angular/material";
-import {ApodInfoModalComponent} from "../apod-info-modal/apod-info-modal.component";
+import { fadeOut } from "../animations";
+import { DomSanitizer } from "@angular/platform-browser";
+import { MdDialog, MdDialogRef } from "@angular/material";
+import { ApodInfoModalComponent } from "../apod-info-modal/apod-info-modal.component";
 
 type apod = {
   date?: Date,
@@ -33,15 +33,15 @@ export class APODPageComponent implements OnInit {
   };
   apods = [];
   pickedApods = [];
-  subscriptions = {apod: null, apods: null};
+  subscriptions = { apod: null, apods: null };
   apodLoading: Boolean = true;
   @HostBinding('@routeAnimation') routeAnimation = true;
 
   constructor(private nasaService: NasaService,
-              private sanitizer: DomSanitizer,
-              public dialog: MdDialog) {
+    private sanitizer: DomSanitizer,
+    public dialog: MdDialog) {
     this.months = moment.months().map((month, index) => {
-      return {name: month, number: index};
+      return { name: month, number: index };
     })
   }
 
@@ -82,7 +82,7 @@ export class APODPageComponent implements OnInit {
         (err) => console.log(err),
       );
 
-      this.apods.push({month: this.pickedDate.month, apods: tempApods});
+      this.apods.push({ month: this.pickedDate.month, apods: tempApods });
       this.pickedApods = this.apods[this.apods.length - 1];
     }
   }

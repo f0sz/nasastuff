@@ -1,8 +1,8 @@
-import {Component, OnInit, HostBinding} from '@angular/core';
-import {fadeOut} from "../animations";
-import {NasaService} from "../providers/nasa.service";
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { fadeOut } from "../animations";
+import { NasaService } from "../providers/nasa.service";
 import * as moment from 'moment';
-import {Http} from "@angular/http";
+import { Http } from "@angular/http";
 @Component({
   selector: 'app-epic-page',
   templateUrl: 'epic-page.component.html',
@@ -12,11 +12,9 @@ import {Http} from "@angular/http";
 export class EPICPageComponent implements OnInit {
 
   @HostBinding('@routeAnimation') routeAniamtion: true;
-  maxDate = moment().subtract(2, 'days').format('YYYY-MM-DD');
-  params = {
-    enhanced: false,
-    date: this.maxDate
-  };
+  maxDate;
+  selectedDate;
+  enhanced = false;
   epics = [];
   epic;
   epicIndex = 0;
@@ -25,11 +23,16 @@ export class EPICPageComponent implements OnInit {
   autoplayImagesSpeed = 1000;
 
   constructor(private nasaService: NasaService,
-              private http: Http) {
+    private http: Http) {
   }
 
   ngOnInit() {
-    this.getEPICS();
+    this.nasaService.getMaxDate()
+      .subscribe(
+      (data) => this.selectedDate = this.maxDate = data,
+      (err) => console.log(err),
+    );
+
   }
 
   getEPICS() {
@@ -37,7 +40,7 @@ export class EPICPageComponent implements OnInit {
     this.epicIndex = 0;
     this.epics = [];
     const tempEpics = [];
-    this.nasaService.getEPIC(this.params).subscribe(
+    this.nasaService.getEPIC({ enhanced: this.enhanced, date: this.selectedDate }).subscribe(
       (data) => data.map(epic => {
         tempEpics.push(epic)
       }),

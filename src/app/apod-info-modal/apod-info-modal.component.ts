@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialogRef} from "@angular/material";
+import { MdDialogRef } from "@angular/material";
 
 @Component({
   selector: 'app-apod-info-modal',
@@ -13,7 +13,7 @@ export class ApodInfoModalComponent implements OnInit {
   constructor(public dialogRef: MdDialogRef<ApodInfoModalComponent>) { }
 
   ngOnInit() {
-    this.apod = this.dialogRef.config.data.apod;
+    this.apod = this.dialogRef._containerInstance.dialogConfig.data.apod;
   }
 
 }

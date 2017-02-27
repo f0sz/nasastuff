@@ -1,3 +1,10 @@
+##2017-02-27
+#####CHANGED:
+* updated angular-cli to 1.0.0-rc.0
+* fixed max available date in epic component
+* misc refactors
+
+
 ##2017-02-21
 #####ADDED:
 * apod info dialog component

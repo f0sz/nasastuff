@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Http, URLSearchParams, Response} from "@angular/http";
+import { Injectable } from '@angular/core';
+import { Http, URLSearchParams, Response } from "@angular/http";
 import * as moment from 'moment';
-import {Observable, Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class NasaService {
@@ -13,7 +12,7 @@ export class NasaService {
   private _URLS = {
     _APOD: 'https://api.nasa.gov/planetary/apod',
     _EPIC: {
-      api: 'https://api.nasa.gov/EPIC/api/',
+      api: 'https://api.nasa.gov/EPIC/api',
       image: 'http://api.nasa.gov/EPIC/archive'
     }
   };
@@ -31,9 +30,9 @@ export class NasaService {
     params.set('hd', 'true');
     params.set('api_key', this._API_KEY);
 
-    return this.http.get(this._URLS._APOD, {search: params})
+    return this.http.get(this._URLS._APOD, { search: params })
       .map((res: Response) => res.json())
-      .catch((err: Response|any) => err)
+      .catch((err: Response | any) => err)
 
   }
 
@@ -59,7 +58,7 @@ export class NasaService {
     let epicURL = `${this._URLS._EPIC.api}/${imageType}/date/${query.date}`;
     params.set('api_key', this._API_KEY);
 
-    return this.http.get(epicURL, {search: params})
+    return this.http.get(epicURL, { search: params })
       .map((res: Response) =>
         res.json()
           .map((epic) => {
@@ -70,6 +69,19 @@ export class NasaService {
             return epic;
           })
       )
-      .catch((err: Response |any) => err)
+      .catch((err: Response | any) => err)
   }
+
+  getMaxDate(): Observable<any> {
+    let params = new URLSearchParams();
+    let datesURL = `${this._URLS._EPIC.api}/natural/available`;
+    params.set('api_key', this._API_KEY);
+    return this.http.get(datesURL, { search: params })
+      .map((res: Response) => {
+        let arr = res.json();
+        return arr[arr.length - 1];
+      })
+      .catch((err: Response | any) => err)
+  }
+
 }
